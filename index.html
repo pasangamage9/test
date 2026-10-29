@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasan Gamage — Video Editor</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        mint: {
+                            300: '#a8e6cf',
+                            400: '#88d49e',
+                            500: '#7cd3a1',
+                            600: '#62b885',
+                            900: '#1b3827',
+                        },
+                        dark: {
+                            bg: '#0a0a0a',
+                            surface: '#121212',
+                            card: '#181818',
+                            border: '#262626',
+                            hover: '#222222'
+                        },
+                        light: {
+                            bg: '#f8f9fa',
+                            surface: '#ffffff',
+                            card: '#f1f3f5',
+                            border: '#e9ecef',
+                            hover: '#e2e8f0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        .dark ::-webkit-scrollbar-track { background: #0a0a0a; }
+        .dark ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #f8f9fa; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+        /* Smooth transition for theme toggle */
+        .theme-transition {
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-light-bg text-slate-800 dark:bg-dark-bg dark:text-slate-200 selection:bg-mint-400 selection:text-black">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 w-full border-b border-light-border dark:border-dark-border bg-light-bg/80 dark:bg-dark-bg/80 backdrop-blur-md theme-transition">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-sm font-semibold tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-mint-400"></span>
+                <span>PASAN GAMAGE</span>
+            </a>
+            
+            <div class="flex items-center gap-4">
+                <nav class="hidden sm:flex items-center gap-6 text-xs font-medium text-slate-500 dark:text-slate-400">
+                    <a href="#work" class="hover:text-slate-900 dark:hover:text-white transition-colors">Work</a>
+                    <a href="#skills" class="hover:text-slate-900 dark:hover:text-white transition-colors">Stack</a>
+                    <a href="#contact" class="hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a>
+                </nav>
+
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full border border-light-border dark:border-dark-border flex items-center justify-center text-slate-600 dark:text-slate-300 hover:border-mint-400 dark:hover:border-mint-400 transition-colors" title="Toggle Light/Dark Theme">
+                    <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-mint-400"></i>
+                    <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-700"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 max-w-5xl mx-auto px-6 pt-12 pb-24 flex-grow w-full">
+
+        <!-- Hero Section -->
+        <section class="py-8 sm:py-12 text-left max-w-2xl">
+            <span class="inline-block text-xs font-mono text-mint-500 mb-3 tracking-widest uppercase">// Video Editor & Motion Designer</span>
+            <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-4 leading-snug">
+                Pacing, narrative & visual precision.
+            </h1>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
+                Hi, I'm <strong class="text-slate-900 dark:text-slate-200">Pasan Gamage</strong>. Crafting engaging short-form reels, commercials, and long-form storytelling with tight cuts, custom sound design, and color grading.
+            </p>
+
+            <div class="flex items-center gap-3">
+                <button onclick="copyEmail()" class="px-4 py-2.5 rounded-lg border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-card hover:border-mint-400 dark:hover:border-mint-400 text-xs font-medium transition-all flex items-center gap-2 group">
+                    <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-400 group-hover:text-mint-400 transition-colors"></i>
+                    <span id="email-btn-text" class="text-slate-800 dark:text-slate-200">pasangamage.work@gmail.com</span>
+                </button>
+                <a href="#contact" class="px-4 py-2.5 rounded-lg bg-mint-400 hover:bg-mint-500 text-black font-semibold text-xs transition-all flex items-center gap-1.5 shadow-sm">
+                    <span>Let's Work</span>
+                    <i data-lucide="arrow-down-right" class="w-3.5 h-3.5"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Interactive Work Showcase -->
+        <section id="work" class="pt-10">
+            <!-- Filter Pills -->
+            <div class="flex items-center justify-between border-b border-light-border dark:border-dark-border pb-4 mb-8 overflow-x-auto gap-4">
+                <div class="flex items-center gap-2 text-xs font-medium" id="filter-buttons">
+                    <button onclick="filterProjects('all', this)" class="filter-btn active px-3 py-1.5 rounded-md bg-slate-900 text-white dark:bg-white dark:text-black font-semibold transition-all">All</button>
+                    <button onclick="filterProjects('short', this)" class="filter-btn px-3 py-1.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Short Form</button>
+                    <button onclick="filterProjects('commercial', this)" class="filter-btn px-3 py-1.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Commercials</button>
+                    <button onclick="filterProjects('long', this)" class="filter-btn px-3 py-1.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Long Form</button>
+                    <button onclick="filterProjects('vfx', this)" class="filter-btn px-3 py-1.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">VFX / Motion</button>
+                </div>
+                <span class="text-[11px] font-mono text-slate-400 hidden sm:block">CLICK TO PREVIEW</span>
+            </div>
+
+            <!-- Video Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card group cursor-pointer" data-category="short" onclick="openLightbox('Minimalist Tech Commercial', 'High-speed vertical montage with retention-focused pacing and sound design.', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', 'Short Form')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border group-hover:border-mint-400 transition-all duration-300 mb-3">
+                        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80" alt="Short Form Reel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-mint-400 group-hover:text-black transition-all">
+                                <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
+                            </div>
+                        </div>
+                        <span class="absolute bottom-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded bg-black/70 text-white">0:30</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-semibold text-slate-900 dark:text-slate-100 group-hover:text-mint-500 transition-colors">Tech Product Hook Reel</h3>
+                        <span class="text-[10px] font-mono text-slate-400">Short Form</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card group cursor-pointer" data-category="commercial" onclick="openLightbox('Streetwear Brand Spot', 'Cinematic color grading with rhythmic edits tailored for modern urban apparel.', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', 'Commercial')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border group-hover:border-mint-400 transition-all duration-300 mb-3">
+                        <img src="https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=800&q=80" alt="Commercial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-mint-400 group-hover:text-black transition-all">
+                                <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
+                            </div>
+                        </div>
+                        <span class="absolute bottom-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded bg-black/70 text-white">1:15</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-semibold text-slate-900 dark:text-slate-100 group-hover:text-mint-500 transition-colors">Streetwear Cinematic Promo</h3>
+                        <span class="text-[10px] font-mono text-slate-400">Commercial</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card group cursor-pointer" data-category="long" onclick="openLightbox('Travel Narrative Documentary', 'Long form storytelling with multi-track audio balancing and immersive pacing.', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'Long Form')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border group-hover:border-mint-400 transition-all duration-300 mb-3">
+                        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80" alt="Documentary" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-mint-400 group-hover:text-black transition-all">
+                                <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
+                            </div>
+                        </div>
+                        <span class="absolute bottom-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded bg-black/70 text-white">12:40</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-semibold text-slate-900 dark:text-slate-100 group-hover:text-mint-500 transition-colors">Travel Docuseries Edit</h3>
+                        <span class="text-[10px] font-mono text-slate-400">Long Form</span>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card group cursor-pointer" data-category="vfx" onclick="openLightbox('Clean Motion Graphics Title Sequence', 'Custom kinetic typography, lower thirds, and particle animated reveals.', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', 'VFX / Motion')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border group-hover:border-mint-400 transition-all duration-300 mb-3">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Motion Graphics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-mint-400 group-hover:text-black transition-all">
+                                <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
+                            </div>
+                        </div>
+                        <span class="absolute bottom-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded bg-black/70 text-white">0:15</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-semibold text-slate-900 dark:text-slate-100 group-hover:text-mint-500 transition-colors">Minimal Motion Reveal</h3>
+                        <span class="text-[10px] font-mono text-slate-400">VFX / Motion</span>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card group cursor-pointer" data-category="short" onclick="openLightbox('Fitness Engagement Reel', 'Fast cuts, sound effects, and kinetic subtitles designed to maximize watch time.', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', 'Short Form')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border group-hover:border-mint-400 transition-all duration-300 mb-3">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Fitness Reel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-mint-400 group-hover:text-black transition-all">
+                                <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
+                            </div>
+                        </div>
+                        <span class="absolute bottom-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded bg-black/70 text-white">0:45</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-semibold text-slate-900 dark:text-slate-100 group-hover:text-mint-500 transition-colors">High-Retention Fitness Reel</h3>
+                        <span class="text-[10px] font-mono text-slate-400">Short Form</span>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card group cursor-pointer" data-category="commercial" onclick="openLightbox('Aesthetic Cafe Commercial', 'Warm organic tones, soft sound effects, and atmospheric cuts.', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4', 'Commercial')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border group-hover:border-mint-400 transition-all duration-300 mb-3">
+                        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=800&q=80" alt="Cafe Commercial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-mint-400 group-hover:text-black transition-all">
+                                <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
+                            </div>
+                        </div>
+                        <span class="absolute bottom-2 right-2 px-2 py-0.5 text-[10px] font-mono rounded bg-black/70 text-white">1:00</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-semibold text-slate-900 dark:text-slate-100 group-hover:text-mint-500 transition-colors">Atmospheric Cafe Brand Reel</h3>
+                        <span class="text-[10px] font-mono text-slate-400">Commercial</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toolkit / Stack Section -->
+        <section id="skills" class="pt-16">
+            <h2 class="text-xs font-mono text-slate-400 uppercase tracking-widest mb-6">// Toolkit & Capabilities</h2>
+            <div class="flex flex-wrap gap-2 text-xs">
+                <span class="px-3 py-1.5 rounded-md border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mint-400"></span> Adobe Premiere Pro
+                </span>
+                <span class="px-3 py-1.5 rounded-md border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mint-400"></span> DaVinci Resolve
+                </span>
+                <span class="px-3 py-1.5 rounded-md border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mint-400"></span> Adobe After Effects
+                </span>
+                <span class="px-3 py-1.5 rounded-md border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mint-400"></span> CapCut Pro
+                </span>
+                <span class="px-3 py-1.5 rounded-md border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mint-400"></span> Sound Design & SFX
+                </span>
+                <span class="px-3 py-1.5 rounded-md border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mint-400"></span> Motion Graphics
+                </span>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="pt-16">
+            <div class="border border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white">Have a project in mind?</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Available for freelance editing, long-term contracts, or short-form reels.</p>
+                </div>
+                <button onclick="copyEmail()" class="w-full sm:w-auto px-5 py-3 rounded-lg bg-mint-400 hover:bg-mint-500 text-black font-semibold text-xs transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                    <span>pasangamage.work@gmail.com</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-light-border dark:border-dark-border py-6 relative z-10 bg-light-bg dark:bg-dark-bg theme-transition">
+        <div class="max-w-5xl mx-auto px-6 flex items-center justify-between text-xs text-slate-400">
+            <span>&copy; <span id="year"></span> Pasan Gamage</span>
+            <span class="font-mono text-[10px]">MINIMAL PORTFOLIO</span>
+        </div>
+    </footer>
+
+    <!-- Video Lightbox Modal -->
+    <div id="video-lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-250 flex items-center justify-center p-4">
+        <div class="relative w-full max-w-3xl bg-dark-card rounded-2xl border border-dark-border overflow-hidden shadow-2xl">
+            <!-- Modal Header -->
+            <div class="px-5 py-3 border-b border-dark-border flex items-center justify-between">
+                <div>
+                    <span id="modal-category" class="text-[10px] font-mono text-mint-400 uppercase">CATEGORY</span>
+                    <h3 id="modal-title" class="text-sm font-semibold text-white">Project Title</h3>
+                </div>
+                <button onclick="closeLightbox()" class="w-8 h-8 rounded-full bg-dark-border text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <!-- Video Container -->
+            <div class="relative aspect-video bg-black">
+                <video id="lightbox-video" controls class="w-full h-full">
+                    <source src="" type="video/mp4">
+                    Your browser does not support video tag.
+                </video>
+            </div>
+            <!-- Modal Description -->
+            <div class="p-4 bg-dark-card border-t border-dark-border">
+                <p id="modal-description" class="text-xs text-slate-300">Project details.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Dynamic Copyright Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme Toggle Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            lucide.createIcons();
+        }
+
+        // Project Filtering Logic
+        function filterProjects(category, btnElement) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.className = "filter-btn px-3 py-1.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all";
+            });
+
+            btnElement.className = "filter-btn active px-3 py-1.5 rounded-md bg-slate-900 text-white dark:bg-white dark:text-black font-semibold transition-all";
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Copy Email Functionality
+        function copyEmail() {
+            const email = "pasangamage.work@gmail.com";
+            const textarea = document.createElement('textarea');
+            textarea.value = email;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const btnText = document.getElementById('email-btn-text');
+            if (btnText) {
+                const originalText = btnText.textContent;
+                btnText.textContent = "Copied Email!";
+                setTimeout(() => {
+                    btnText.textContent = originalText;
+                }, 2000);
+            }
+        }
+
+        // Lightbox Functions
+        const lightbox = document.getElementById('video-lightbox');
+        const lightboxVideo = document.getElementById('lightbox-video');
+
+        function openLightbox(title, description, videoSrc, category) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-description').textContent = description;
+            document.getElementById('modal-category').textContent = category;
+            
+            lightboxVideo.src = videoSrc;
+            lightbox.classList.remove('hidden');
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+            }, 10);
+            
+            lightboxVideo.play();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('opacity-0');
+            lightboxVideo.pause();
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxVideo.src = "";
+            }, 250);
+        }
+
+        // Escape key modal close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
